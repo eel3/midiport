@@ -1,0 +1,79 @@
+#!/usr/bin/awk -f
+# @(#) format output of midiport(1). Version 1.0.0.20140614
+
+# Copyright (c) 2014 eel3
+#
+# This software is provided 'as-is', without any express or implied
+# warranty. In no event will the authors be held liable for any damages
+# arising from the use of this software.
+#
+# Permission is granted to anyone to use this software for any purpose,
+# including commercial applications, and to alter it and redistribute it
+# freely, subject to the following restrictions:
+#
+#     1. The origin of this software must not be misrepresented; you must not
+#     claim that you wrote the original software. If you use this software
+#     in a product, an acknowledgment in the product documentation would be
+#     appreciated but is not required.
+#
+#     2. Altered source versions must be plainly marked as such, and must not be
+#     misrepresented as being the original software.
+#
+#     3. This notice may not be removed or altered from any source
+#     distribution.
+
+function unexpected_format_error() {
+	printf("%s: line %d: Unexpected format: %s\n", FILENAME, NR, $0) > "/dev/stderr"
+	error_exit = 1
+	exit 1
+}
+
+function on_record_found(id, name, dev_id, dev_name, ndev, dev_id_maxlen,   len) {
+	dev_id[ndev] = id
+	dev_name[ndev] = name
+	len = length($2)
+	return (len > dev_id_maxlen) ? len : dev_id_maxlen
+}
+
+function print_device_list(header, dev_id, dev_name, ndev, dev_id_maxlen,   fmt, i) {
+	print header
+	if (ndev == 0) {
+		print " Not found."
+	} else {
+		fmt = " %" dev_id_maxlen "s | %s\n"
+		for (i = 0; i < ndev; i++)
+			printf(fmt, dev_id[i], dev_name[i])
+	}
+}
+
+BEGIN {
+	FS = "\t"
+	in_id[0]  = in_name[0]  = nin  = in_id_maxlen  = 0
+	out_id[0] = out_name[0] = nout = out_id_maxlen = 0
+}
+/^#/ || /^[ \t]*$/ {
+	next
+}
+NF != 3 {
+	unexpected_format_error()
+}
+$1 == "in" {
+	in_id_maxlen = on_record_found($2, $3, in_id, in_name, nin, in_id_maxlen)
+	nin++
+	next
+}
+$1 == "out" {
+	out_id_maxlen = on_record_found($2, $3, out_id, out_name, nout, out_id_maxlen)
+	nout++
+	next
+}
+{
+	unexpected_format_error()
+}
+END {
+	if (!error_exit) {
+		print_device_list(" [MIDI IN]", in_id, in_name, nin, in_id_maxlen)
+		print ""
+		print_device_list(" [MIDI OUT]", out_id, out_name, nout, out_id_maxlen)
+	}
+}
