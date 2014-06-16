@@ -11,18 +11,19 @@ zlib License.
 Target environments
 -------------------
 
-Windows, Mac OS X.
+Windows, Linux, Mac OS X.
 
 Set up
 ------
 
 All you have to do is compile midiport.c/midiport.m. Use make and Makefile.
 
-| toolset                       | Makefile          | notes                               |
-|:------------------------------|:------------------|:------------------------------------|
-| Mac OS X (Xcode)              | Makefile          | Using ARC (Need Xcode 4.2 or later) |
-| MinGW/TDM-GCC (with GNU make) | Makefile_mingw    |                                     |
-| Microsoft Visual C++          | Makefile_vc_nmake |                                     |
+| toolset                       | Makefile          | notes                                                  |
+|:------------------------------|:------------------|:-------------------------------------------------------|
+| Linux                         | Makefile          | Need libasound2-dev (debian) / alsa-lib-devel (CentOS) |
+| Mac OS X (Xcode)              | Makefile          | Using ARC (Need Xcode 4.2 or later)                    |
+| MinGW/TDM-GCC (with GNU make) | Makefile_mingw    |                                                        |
+| Microsoft Visual C++          | Makefile_vc_nmake |                                                        |
 
 Output format of midiport is machine-readable.
 
