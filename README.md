@@ -18,12 +18,13 @@ Set up
 
 All you have to do is compile midiport.c/midiport.m. Use make and Makefile.
 
-| toolset                       | Makefile          | notes                                                  |
-|:------------------------------|:------------------|:-------------------------------------------------------|
-| Linux                         | Makefile          | Need libasound2-dev (debian) / alsa-lib-devel (CentOS) |
-| Mac OS X (Xcode)              | Makefile          | Using ARC (Need Xcode 4.2 or later)                    |
-| MinGW/TDM-GCC (with GNU make) | Makefile_mingw    |                                                        |
-| Microsoft Visual C++          | Makefile_vc_nmake |                                                        |
+| toolset                        | Makefile                 | notes                                                     |
+|:-------------------------------|:-------------------------|:----------------------------------------------------------|
+| Linux                          | Makefile                 | Need libasound2-dev (debian) / alsa-lib-devel (CentOS)    |
+| Mac OS X (Xcode)               | Makefile                 | Using ARC (Need Xcode 4.2 or later. NOT work on 32bit OS) |
+| MinGW/TDM-GCC (with GNU make)  | Makefile\_mingw          |                                                           |
+| MinGW-w64/TDM64 (32bit binary) | Makefile\_mingw64\_32bit |                                                           |
+| Microsoft Visual C++           | Makefil\e_vc\_nmake      |                                                           |
 
 Output format of midiport is machine-readable.
 
