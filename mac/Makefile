@@ -1,15 +1,17 @@
 # @brief   midiport Makefile for Mac OS X Objective-C.
 # @author  eel3
-# @date    2014/06/12
+# @date    2015/07/28
 #
 # @note
-# - LLVM 4.2 (clang-425.0.27, Xcode 4.6.1) on Mac OS X 10.8.4
+# - Apple LLVM 6.0 (clang-600.0.57, Xcode 6.2) on Mac OS X 10.9.5
 
 app            := midiport
+CC             := xcrun cc
 CFLAGS         := -Wall -std=gnu99 -pedantic -fobjc-arc
-CPPFLAGS       := -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/
+SDKROOT        := $(shell xcodebuild -version -sdk macosx | sed -n '/^Path: /s///p')
+CPPFLAGS        = -isysroot "$(SDKROOT)"
 LDLIBS         := -framework Foundation -framework CoreMIDI
-TARGET_ARCH    := -mmacosx-version-min=10.6 -arch x86_64
+TARGET_ARCH    := -mmacosx-version-min=10.8 -arch x86_64
 
 .PHONY: all
 all: $(app)
