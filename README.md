@@ -34,7 +34,7 @@ midiportf is written in AWK.
 Usage
 -----
 
-See \`Example'. midiport has no option.
+Simply execute `midiport`. midiport has no option.
 
 Example
 -------
