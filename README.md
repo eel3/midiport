@@ -11,7 +11,7 @@ zlib License.
 Target environments
 -------------------
 
-Windows, Linux, Mac OS X.
+Windows, Linux, macOS.
 
 Set up
 ------
