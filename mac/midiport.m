@@ -2,7 +2,7 @@
 /**
  * @brief   Command line tool to show MIDI port.
  * @author  eel3
- * @date    2014/06/13
+ * @date    2022-02-10
  *
  * @par OS:
  *   - Mac OS X 10.8.5
@@ -17,6 +17,7 @@
 #import <CoreMIDI/CoreMIDI.h>
 
 #include <stdio.h>
+#include <stdint.h>
 
 
 /* ====================================================================== */
@@ -36,7 +37,7 @@ show_midi_in(void)
 
 	for (i = 0; i < ndevs; i++) {
 		ep = MIDIGetSource(i);
-		if (ep == (MIDIEndpointRef) NULL) {
+		if (ep == (MIDIEndpointRef) (uintptr_t) NULL) {
 			continue;
 		}
 
@@ -68,7 +69,7 @@ show_midi_out(void)
 
 	for (i = 0; i < ndevs; i++) {
 		ep = MIDIGetDestination(i);
-		if (ep == (MIDIEndpointRef) NULL) {
+		if (ep == (MIDIEndpointRef) (uintptr_t) NULL) {
 			continue;
 		}
 
